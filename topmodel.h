@@ -27,7 +27,7 @@ public:
     Q_INVOKABLE void addAlbumsFromTextArea(QVariant text);
     Q_INVOKABLE void saveResults(QVariant filename);
 
-    Q_INVOKABLE void searchOverlapsByArtist();
+    Q_INVOKABLE void searchOverlapsByArtist(QMap<QString, QString> rejectedOverlaps = QMap<QString, QString>());
 
     void addAlbum(Album* album);
 

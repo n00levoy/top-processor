@@ -10,7 +10,6 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     TopModel topModel;
-//    topModel.addAlbum(new Album("1. Warpaint - Heads Up"));
 
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();

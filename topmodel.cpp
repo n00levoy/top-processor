@@ -123,7 +123,7 @@ void TopModel::saveResults(QVariant filename)
     }
 }
 
-void TopModel::searchOverlapsByArtist()
+void TopModel::searchOverlapsByArtist(QMap<QString, QString> rejectedOverlaps)
 {
     int somethingChanged = 0;
     foreach (Album* album, m_list)
@@ -132,7 +132,8 @@ void TopModel::searchOverlapsByArtist()
         {
             if(album->artist() == insAlbum->artist())
             {
-                if(!(album->album() == insAlbum->album()))
+                if(!(album->album() == insAlbum->album()) &&
+                     rejectedOverlaps.value(album->artist() + album->album()) != (insAlbum->artist() + insAlbum->album()))
                 {
                     QMessageBox msgBox;
                     msgBox.setText(album->artist() + " - " + album->album() + " и " +
@@ -151,6 +152,10 @@ void TopModel::searchOverlapsByArtist()
                             somethingChanged++;
                             break;
 
+                        case QMessageBox::No:
+                            rejectedOverlaps.insert(album->artist() + album->album(), insAlbum->artist() + insAlbum->album());
+                            break;
+
                         default:
                             break;
                     }
@@ -167,5 +172,5 @@ void TopModel::searchOverlapsByArtist()
     }
 
     if(somethingChanged)
-        searchOverlapsByArtist();
+        searchOverlapsByArtist(rejectedOverlaps);
 }
